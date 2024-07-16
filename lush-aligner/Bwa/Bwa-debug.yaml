@@ -1,0 +1,19 @@
+name: Bwa
+bwa:
+  index: /data/lush-dev/shijiashuai/data/index/hg19/hg19.fasta
+  i:
+    - fq: /data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_1_s3.fq;/data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_2_s3.fq
+      rg: "@RG\\tID:id1\\tSM:sm1\\tLB:lib1\\tPL:pl1"
+  o: /data/lush-dev/shijiashuai/workspace/out/lush_aligner/Bwa/results/20240711/bwa.sam
+  # worker的数量 [1] INT
+  worker_num: 4
+  # 单个worker的比对的线程数 [1] INT
+  t: 30
+  # verbosity level: 1=error, 2=warning, 3=message, 4=debugging [3] INT
+  v: 2
+  # 每批处理的数据量 [80000] INT
+  batch_size: 50000
+  # use soft clipping for supplementary alignments [BOOL: true/false] [false]
+  Y: true
+  # mark shorter split hits as secondary [BOOL: true/false] [false]
+  M: true

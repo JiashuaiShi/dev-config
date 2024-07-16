@@ -1,0 +1,65 @@
+# 注释参数仅供示例使用, 此配置仅作模板使用，请勿在此文件直接更改，
+name: FilterMinimap2SortDup
+# 过滤组件
+filter:
+  # 用分号;分隔, 支持批量文件输入，rg信息可选
+  i:
+    - fq: /data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_1_s1.fq.gz;/data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_2_s1.fq.gz
+      rg: "@RG\\tID:id-1\\tSM:sm-1\\tLB:lib1\\tPL:MGI"
+    - fq: /data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_1_s2.fq.gz;/data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_2_s2.fq.gz
+      rg: "@RG\\tID:id-2\\tSM:sm-2\\tLB:lib2\\tPL:MGI"
+    # - fq: /data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_1_s3.fq;/data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_2_s3.fq
+    #   rg: "@RG\\tID:id-3\\tSM:sm-3\\tLB:lib3\\tPL:MGI"
+    # - fq: /data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_1_s4.fq;/data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_2_s4.fq
+    #   rg: "@RG\\tID:id-4\\tSM:sm-4\\tLB:lib4\\tPL:MGI"
+    # - fq: /data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_1_s5.fq;/data/lush-dev/shijiashuai/data/FastQ/fastq_1/CL100012105_L1_1_2_s5.fq
+    #   rg: "@RG\\tID:id-5\\tSM:sm-5\\tLB:lib5\\tPL:MGI"
+  # 输出文件的路径
+  o: /data/lush-dev/shijiashuai/workspace/out/lush_aligner/FilterBwaSortDup/results/20240711
+  # number of threads(default: [1])
+  t: 5
+  # fastq文件读取的批次大小,默认为50000
+  batch_size: 100000
+  adapter:
+    - AGATCGGAAGAGCACACGTCTGAACTCCA
+    - AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT
+  # adapter's shortest match ratio(default: [0.5])
+  # m: 0.8
+  # the max mismatch number when match the adapter(default: [1])
+  # b: 2
+  # low quality threshold(default: [5])
+  # l: 5
+  # low quality rate(default: [0.5])
+  # q: 0.5
+  # mean quality threshold(default: [0])
+  # w: 20
+  # N rate threshold(default: [0.05])
+  # n: 0.05
+  # A rate threshold, 0 means not filter(default: [0])
+  # a: 0.9
+  # quality offset, for example: illumina18 is 33, 0 means infered by program(default: [0])
+  # s: 33
+  # 是否分目录保存结果，默认为true
+  # d: true
+  # 截取fastQ文件总共的前n行，浮点数，单位 M(1024 * 1024). 默认为0, 表示不进行截取
+  # c: 0
+
+# minimap2组件
+minimap2:
+  # 索引表路径
+  index: /data/lush-dev/shijiashuai/data/index/minimap2/hg19/hg19_ref_pe.mmi
+  # 指定比对算法。minimap2支持多种比对算法，包括map-ont、map-pb、asm5、asm10、asm20、splice和sr等。x参数用于指定使用哪种算法进行比对。
+  x: sr
+  # 指定线程数。minimap2支持多线程比对，t参数用于指定使用的线程数
+  t: 10
+
+# 排序去重组件
+sort_dup:
+  # 输出文件路径：
+  o: /data/lush-dev/shijiashuai/out/lush_aligner/filterMinimap2SortDup/filterbwasortdup.bam
+  # 线程数[必须 >= 32]
+  t: 128
+  # 临时文件路径，需要有读写权限
+  z: /data/lush-dev/shijiashuai/tmp
+  # bam切分模式：0不切分,1只切分unmap,2按照染色体切分 [默认值：0]
+  segment_mode: 0

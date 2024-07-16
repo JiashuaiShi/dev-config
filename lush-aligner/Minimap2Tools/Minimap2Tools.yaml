@@ -1,0 +1,23 @@
+# 注释参数仅供示例使用, 此配置仅作模板使用，请勿在此文件直接更改，
+name: Minimap2Tools
+minimap2:
+  # 索引表路径
+  index: /data/lush-dev/shijiashuai/data/index/minimap2/hg19/hg19_ref_pe.mmi
+  # 用分号;分隔, rg信息可选，支持多组文件输入
+  i:
+    - fq: /data/lush-dev/shijiashuai/data/fastq/CL100012105_L1_1_1_s1.fq;/data/lush-dev/shijiashuai/data/fastq/CL100012105_L1_1_2_s1.fq
+      rg: "@RG\\tID:id-1\\tSM:sm-1\\tLB:lib1\\tPL:MGI"
+    - fq: /data/lush-dev/shijiashuai/data/fastq/CL100012105_L1_1_1_s2.fq;/data/lush-dev/shijiashuai/data/fastq/CL100012105_L1_1_2_s2.fq
+      rg: "@RG\\tID:id-2\\tSM:sm-2\\tLB:lib2\\tPL:MGI"
+    - fq: /data/lush-dev/shijiashuai/data/fastq/CL100012105_L1_1_1_s3.fq;/data/lush-dev/shijiashuai/data/fastq/CL100012105_L1_1_2_s3.fq
+      rg: "@RG\\tID:id-3\\tSM:sm-3\\tLB:lib3\\tPL:MGI"
+    - fq: /data/lush-dev/shijiashuai/data/fastq/CL100012105_L1_1_1_s4.fq;/data/lush-dev/shijiashuai/data/fastq/CL100012105_L1_1_2_s4.fq
+      rg: "@RG\\tID:id-4\\tSM:sm-4\\tLB:lib4\\tPL:MGI"
+    - fq: /data/lush-dev/shijiashuai/data/fastq/CL100012105_L1_1_1_s5.fq;/data/lush-dev/shijiashuai/data/fastq/CL100012105_L1_1_2_s5.fq
+      rg: "@RG\\tID:id-5\\tSM:sm-5\\tLB:lib5\\tPL:MGI"
+  # 输出路径
+  o: /data/lush-dev/shijiashuai/out/lush_aligner/Minimap2Tools/results/CL100012105_L1_1_1.bam
+  # 指定比对算法。minimap2支持多种比对算法，包括map-ont、map-pb、asm5、asm10、asm20、splice和sr等。x参数用于指定使用哪种算法进行比对。
+  x: sr
+  # 指定线程数。minimap2支持多线程比对，t参数用于指定使用的线程数
+  t: 10
